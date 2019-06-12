@@ -104,15 +104,15 @@
             <artifactId>tika-core</artifactId>
             <version>1.1</version>
         </dependency>
-        <!-- cf. http://notaboekje.blogspot.fr/2012/02/creer-un-projet-maven-pour-javafx.html  -->
-        <!-- Add 'javafx.rt.jar' property in maven settings.xml, representing the path of the JavaFX jar -->
+<!--         cf. http://notaboekje.blogspot.fr/2012/02/creer-un-projet-maven-pour-javafx.html 
+        Add 'javafx.rt.jar' property in maven settings.xml, representing the path of the JavaFX jar-->
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>javafx</artifactId>
             <version>2.2</version>
-            <systemPath>${javafx.rt.jar}</systemPath>
+            <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
             <scope>system</scope>
-        </dependency>
+        </dependency> 
     </dependencies>
 
     <build>
@@ -225,11 +225,14 @@
                       <goals>
                          <goal>jar</goal>
                       </goals>
+                      <configuration> <!-- add this to disable checking -->
+		                <additionalparam>-Xdoclint:none</additionalparam>
+		            </configuration>
                    </execution>
                 </executions>
             </plugin>
             
-            <plugin>
+            <!-- <plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>downloads-maven-plugin</artifactId>
 				<version>0.6</version>
@@ -247,7 +250,7 @@
 						<phase>install</phase>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>

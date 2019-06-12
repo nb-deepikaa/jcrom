@@ -1,6 +1,6 @@
 /**
  * This file is part of the JCROM project.
- * Copyright (C) 2008-2015 - All rights reserved.
+ * Copyright (C) 2008-2019 - All rights reserved.
  * Authors: Olafur Gauti Gudmundsson, Nicolas Dos Santos
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -140,8 +140,14 @@ class ChildNodeMapper {
     }
 
     private void addMultipleChildrenToNode(Field field, JcrChildNode jcrChildNode, Object obj, String nodeName, Node node, Mapper mapper, int depth, NodeFilter nodeFilter) throws IllegalAccessException, RepositoryException, IOException {
-
-        Node childContainer = createChildNodeContainer(node, nodeName, jcrChildNode, mapper);
+    	Node childContainer;
+    	//Container node is not created when createContainerNode = false
+    	if(jcrChildNode.createContainerNode()){
+    		childContainer = createChildNodeContainer(node, nodeName, jcrChildNode, mapper);
+    	}else{
+    		childContainer = node;
+    	}
+        
         List<?> children = (List<?>) typeHandler.getObject(field, obj);
         if (children != null && !children.isEmpty()) {
             if (childContainer.hasNodes()) {
